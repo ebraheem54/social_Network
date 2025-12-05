@@ -9,7 +9,9 @@ venv/
 # Database
 db.sqlite3
 
- 
+# Static files (collected)
+/socialNetworkApp/staticfiles/
+
 # Environment variables
 .env
 
