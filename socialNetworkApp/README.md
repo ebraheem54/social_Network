@@ -1,0 +1,112 @@
+# Django Social Network Application
+
+## Overview
+This is a Django-based social network application that allows users to create accounts, login, post updates, and manage their profiles. The application has been configured to run seamlessly in the Replit environment.
+
+## Project Structure
+- **socialNetworkApp/** - Main Django project directory
+  - **core/** - Main app with user authentication and post management
+    - **models.py** - User and Post models
+    - **views.py** - Login, signup, profile, and post creation views
+    - **forms.py** - Custom signup form
+    - **urls.py** - URL routing
+  - **socialNetworkApp/** - Project settings
+    - **settings.py** - Django configuration
+    - **urls.py** - Main URL configuration
+  - **Templates/** - HTML templates
+  - **Static/** - Static files and media uploads
+  - **manage.py** - Django management script
+
+## Features
+- User registration and authentication
+- User profiles with bio and profile pictures
+- Post creation with captions
+- Account settings to update profile information
+- Pagination on profile page (2 posts per page)
+
+## Technology Stack
+- Django 5.0.0
+- django-crispy-forms 2.1 with Bootstrap 4
+- Pillow 10.1.0 (for image handling)
+- python-dotenv 1.0.0 (for environment variables)
+- SQLite (database)
+- Gunicorn 21.2.0 (for production deployment)
+
+## Environment Variables
+The following environment variables are configured:
+- `SECRET_KEY` - Django secret key for cryptographic signing
+- `DEBUG` - Set to "True" for development mode
+
+## Database
+The application uses SQLite as its database. Migrations have been applied and the database is ready to use.
+
+## Running the Application
+The application is configured to run on port 5000 using Django's development server:
+```bash
+cd socialNetworkApp && python manage.py runserver 0.0.0.0:5000
+```
+
+## Deployment
+The application is configured for Autoscale deployment using Gunicorn as the WSGI server. The deployment will automatically scale based on traffic.
+
+## Replit-Specific Configuration
+The following changes were made to ensure compatibility with Replit:
+1. **ALLOWED_HOSTS** - Set to `['*']` to allow access from Replit's proxy
+2. **X_FRAME_OPTIONS** - Set to `'ALLOWALL'` to allow embedding in Replit's iframe
+3. **CSRF_TRUSTED_ORIGINS** - Configured for Replit domains
+4. **Server binding** - Development server binds to `0.0.0.0:5000`
+
+## Design & UI
+The application features a modern, professional UI with:
+- **Custom CSS Framework** - Professional gradient-based design system
+- **Responsive Layouts** - Mobile-friendly cards and components
+- **Modern Color Scheme** - Blue primary color (#2563eb) with accent colors
+- **Smooth Animations** - Hover effects and transitions on all interactive elements
+- **Professional Typography** - Clean, modern font stack with proper hierarchy
+- **Card-Based Design** - Beautiful shadow effects and rounded corners
+- **Gradient Backgrounds** - Modern gradient backgrounds throughout
+- **Form Optimization** - Professional form inputs with focus states
+
+## Recent Changes
+- December 5, 2025: Template optimization and design refinement
+  - Optimized all templates without changing functionality
+  - Removed inline styles, moved to CSS classes
+  - Improved HTML structure and semantic markup
+  - Enhanced pagination with better UI and accessibility
+  - Better form error placement (shown before form)
+  - Aligned responsive design across all pages
+  - Improved button grouping with proper spacing
+  - Added accessibility attributes (aria-label, aria-hidden)
+  - Consistent use of Container layout patterns
+  - Enhanced profile card with better visual hierarchy
+
+- December 5, 2025: Design and UI improvements
+  - Created comprehensive custom CSS with modern styling (style.css)
+  - Redesigned all templates with professional appearance:
+    - Login page: Clean form card with side image
+    - Signup page: Professional registration form with gradients
+    - Profile page: Card-based profile display with stats
+    - Account settings: Modern settings form with image preview
+    - New post: Clean post creation interface
+  - Updated navbar with modern navigation and search functionality
+  - Implemented responsive design for all screen sizes
+  - Added Font Awesome icons throughout for better UX
+  - Created admin user for testing
+
+- December 5, 2025: Initial Replit environment setup
+  - Installed Python 3.11 and all dependencies
+  - Configured environment variables
+  - Updated Django settings for Replit compatibility
+  - Ran database migrations
+  - Configured workflow and deployment settings
+  - Created project documentation
+
+## User Preferences
+None specified yet.
+
+## Project Architecture
+This is a standard Django application following the MVT (Model-View-Template) pattern:
+- Models define User and Post data structures
+- Views handle request/response logic for authentication and CRUD operations
+- Templates render the HTML pages
+- Static files include CSS, JavaScript, and user-uploaded media
