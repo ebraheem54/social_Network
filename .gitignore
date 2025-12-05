@@ -1,0 +1,22 @@
+# Python Cache
+__pycache__/
+*.pyc
+
+# Virtual Environment
+venv/
+
+
+# Database
+db.sqlite3
+
+ 
+# Environment variables
+.env
+
+# VS Code
+.vscode/
+
+# Migrations cache ONLY (not migration scripts!)
+core/migrations/__pycache__/
+
+/socialNetworkApp/Static/media/profile_pics/*
