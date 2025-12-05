@@ -1,25 +1,45 @@
-{%  extends 'base.html' %}
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %}
-New Post
-{% endblock title %}
-
+{% block title %}New Post - SocialHub{% endblock %}
 
 {% block navbar %}
-
-{%  include 'navbar.html' %}
-
-{% endblock navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
 
 {% block content %}
-<br>
-<form method="POST" action="" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form|crispy }}
-
-    <input class="btn btn-primary" type="submit" value="Post">
-</form>
-
-{% endblock content %}
-
+<div class="row" style="margin-top: 2rem;">
+    <div class="col-lg-8 offset-lg-2">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="mb-4">
+                    <i class="fas fa-pen-fancy" style="color: #2563eb;"></i> Write a New Post
+                </h2>
+                
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="{{ form.caption.id_for_label }}">What's on your mind?</label>
+                        {{ form.caption }}
+                        <small class="form-text text-muted">Share your thoughts with the community</small>
+                    </div>
+                    
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Error!</strong> Please fix the errors below.
+                        </div>
+                    {% endif %}
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Post
+                    </button>
+                    <a href="{% url 'profile' %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
