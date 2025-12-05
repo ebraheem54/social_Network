@@ -9,5 +9,7 @@ urlpatterns=[
     path('profile/',Profile.as_view(),name='profile'),
     path('account-settings/',AccountSettingsView.as_view(),name='account_settings'),
     path('new-post/',CreatePost.as_view(),name='new_post'),
-    
+    path('user/<str:username>/',FriendProfile.as_view(),name='friend-profile'),
+    path('search/',SearchResults.as_view(),name='search'),
+
 ]
