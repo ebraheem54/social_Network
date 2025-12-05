@@ -22,3 +22,8 @@ db.sqlite3
 core/migrations/__pycache__/
 
 /socialNetworkApp/Static/media/profile_pics/*
+
+# Replit specific files
+replit.md
+/socialNetworkApp/Static/style.css
+requirements.txt
