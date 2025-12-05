@@ -77,3 +77,48 @@ class CreatePost(CreateView):
           user=self.request.user
           form.instance.user=user
           return super().form_valid(form)
+
+@method_decorator (login_required(login_url='login'),name='dispatch')
+class FriendProfile(ListView):
+     model=Post
+     template_name='friend-profile.html'
+     paginate_by=2
+
+     def get(self, *args, **kwargs):
+          friend_username=self.kwargs['username']
+          user_username=self.request.user.username 
+          if( friend_username==user_username):
+              return   redirect('profile')
+          else:
+               return super(FriendProfile,self).get(*args,**kwargs)
+                   
+     def get_context_data(self,*, object_list=None,**kwargs):
+            context = super().get_context_data(**kwargs)
+            friend_username=self.kwargs['username']
+            friend=User.objects.get(username=friend_username)
+            context['friend']=friend
+            return context
+     
+     def get_queryset(self):
+          friend_username=self.kwargs['username']
+          friend=User.objects.get(username=friend_username)
+          return Post.objects.filter(user=friend ).order_by('date_created')
+     
+@method_decorator (login_required(login_url='login'),name='dispatch')
+class AccountSettingsView(UpdateView):
+     model=User
+     fields=['first_name','last_name','profile_pic','bio']
+     template_name='account_settings.html'
+     success_url='/profile/'
+     def get_object(self, queryset =None):
+          return self.request.user
+     
+class SearchResults(ListView):
+     model=User
+     template_name='search-results.html'
+     paginate_by=4
+
+     def get_queryset(self):
+          search_term=self.request.GET['search-term']
+          qs=User.objects.filter(username__contains=search_term)
+          return qs

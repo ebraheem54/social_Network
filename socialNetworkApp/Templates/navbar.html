@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand" href="{% url 'profile' %}">
@@ -44,3 +45,38 @@
         </div>
     </div>
 </nav>
+=======
+<nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #00a1ff;">
+    <button class="navbar-toggler" type="button" style="color:white;" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" ></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarToggler" >
+        <h3> <a class="navbar-brand" href="#">SocialNetwork</a> </h3>
+        <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'search' %}">
+            <input class="form-control mr-sm-2" type="search" name="search-term" placeholder="Search for friends" aria-label="Search"name="search-term">
+        </form>
+        <ul class="navbar-nav  ml-auto">
+
+
+            
+
+            <li class="nav-item">
+                <a class="nav-link" href=""> <i class="fa fa-home fa-lg"></i> Home</a>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile' %}"><i class="fa fa-user fa-lg"></i> Profile</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out fa-lg"></i> Logout</a>
+            </li>
+
+
+        </ul>
+
+    </div>
+</nav>
+>>>>>>> e0e7b8c7a929ca48daaeb70bf8dbd29afa007d34
