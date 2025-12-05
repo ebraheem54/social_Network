@@ -8,14 +8,13 @@
 {% endblock %}
 
 {% block content %}
-<div class="row" style="margin-top: 2rem;">
+<div class="row mt-4">
     <div class="col-lg-4 mb-4">
         <div class="profile-card">
             <img src="{{ request.user.profile_pic.url }}" alt="Profile" class="profile-pic">
             <div class="profile-info">
                 <h2 class="profile-name">{{ request.user.first_name }} {{ request.user.last_name }}</h2>
                 <p class="profile-username">@{{ request.user.username }}</p>
-                
                 <div class="profile-stats">
                     <div class="stat">
                         <div class="stat-number">{{ request.user.get_num_posts }}</div>
@@ -26,30 +25,24 @@
                         <div class="stat-label">Updates</div>
                     </div>
                 </div>
-                
                 <p class="profile-bio">{{ request.user.bio }}</p>
-                
                 <a href="{% url 'account_settings' %}" class="btn btn-primary w-100">
                     <i class="fas fa-edit"></i> Edit Profile
                 </a>
             </div>
         </div>
     </div>
-    
     <div class="col-lg-8">
         <a href="{% url 'new_post' %}" class="new-post-button">
             <i class="fas fa-pen-fancy"></i> Write a New Post
         </a>
-        
         <div class="posts-container">
             {% if object_list %}
                 {% for post in object_list %}
                     <div class="post-card">
                         <div class="post-header">
                             <div>
-                                <h5 style="margin: 0; font-weight: 600;">
-                                    <i class="fas fa-quote-left" style="color: #2563eb;"></i>
-                                </h5>
+                                <i class="fas fa-quote-left" style="color: #2563eb; font-size: 1.25rem;"></i>
                             </div>
                             <span class="post-time">
                                 <i class="fas fa-clock"></i> {{ post.date_created|date:"M d, Y - g:i A" }}
@@ -60,7 +53,6 @@
                         </div>
                     </div>
                 {% endfor %}
-                
                 {% include 'pagination.html' %}
             {% else %}
                 <div class="alert alert-info text-center" role="alert">

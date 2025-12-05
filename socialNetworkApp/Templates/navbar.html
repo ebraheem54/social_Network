@@ -3,7 +3,7 @@
         <a class="navbar-brand" href="{% url 'profile' %}">
             <i class="fas fa-network-wired"></i> SocialHub
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -19,7 +19,7 @@
                     </div>
                 </form>
             </div>
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ml-3">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'profile' %}">
                         <i class="fas fa-home"></i> Home

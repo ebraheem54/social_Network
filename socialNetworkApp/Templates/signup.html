@@ -5,52 +5,44 @@
 {% block title %}Sign Up - SocialHub{% endblock %}
 
 {% block content %}
-<div class="auth-container" style="margin-top: 3rem;">
-    <div class="col-lg-5">
+<div class="row align-items-center" style="min-height: 80vh;">
+    <div class="col-lg-5 mb-4 mb-lg-0">
         <div class="auth-form">
-            <h1 class="mb-4">Join SocialHub</h1>
+            <h1 class="mb-2">Join SocialHub</h1>
             <p class="text-muted mb-4">Create your account to get started</p>
-            
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Error!</strong> Please fix the errors below.
+                    {% for field, errors in form.errors.items %}
+                        <div>{{ field }}: {{ errors }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <form method="POST" action="">
                 {% csrf_token %}
                 <div class="form-group">
                     <label>Username *</label>
                     {{ form.username }}
                 </div>
-                
                 <div class="form-group">
                     <label>Email *</label>
                     {{ form.email }}
                 </div>
-                
                 <div class="form-group">
                     <label>Password *</label>
                     {{ form.password1 }}
                 </div>
-                
                 <div class="form-group">
                     <label>Confirm Password *</label>
                     {{ form.password2 }}
                 </div>
-                
-                {% if form.errors %}
-                    <div class="alert alert-danger" role="alert">
-                        <strong>Error!</strong> Please fix the errors below.
-                        {% for field, errors in form.errors.items %}
-                            <div>{{ field }}: {{ errors }}</div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-                
                 <button type="submit" class="btn btn-primary w-100 mb-3">Create Account</button>
             </form>
-            
             <p class="text-center text-muted">
                 Already have an account? <a href="{% url 'login' %}" class="auth-link">Sign in</a>
             </p>
         </div>
     </div>
-    
     <div class="col-lg-7 d-none d-lg-block">
         <img class="auth-image img-fluid" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Join us">
     </div>
