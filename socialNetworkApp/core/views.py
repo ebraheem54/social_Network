@@ -115,7 +115,9 @@ class AccountSettingsView(UpdateView):
      success_url='/profile/'
      def get_object(self, queryset =None):
           return self.request.user
-     
+
+
+@method_decorator (login_required(login_url='login'),name='dispatch')
 class SearchResults(ListView):
      model=User
      template_name='search-results.html'
@@ -143,3 +145,15 @@ def unfollow_user(request,id):
       
      return redirect('/user/'+user_B.username)        
 
+
+
+@method_decorator (login_required(login_url='login'),name='dispatch')
+class HomePage(ListView):
+     model=Post
+     template_name='homepage.html'
+     paginate_by=4
+
+     def get_queryset(self):
+          followings=self.request.user.get_followings()
+          return Post.objects.filter(user_id__in=followings)
+               

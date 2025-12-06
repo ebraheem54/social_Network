@@ -15,6 +15,13 @@ class User(AbstractUser):
         else:
              return False
     
+    def get_followings(self):
+       followings= Friends.objects.filter(user_A=self)
+       temp=[]
+       for i in followings:
+            temp.append(i.user_B.id)
+       return temp
+     
 class Post(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     caption=models.TextField(max_length=600,null=False)
