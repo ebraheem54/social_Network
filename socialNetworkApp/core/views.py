@@ -20,6 +20,7 @@ class SignupView(CreateView):
              user=form.save()
              login(self.request,user)
              return redirect('profile')
+         
          def get(self,*args,**kargs):
               if(self.request.user.is_authenticated):
                    return redirect('profile')
@@ -97,6 +98,8 @@ class FriendProfile(ListView):
             friend_username=self.kwargs['username']
             friend=User.objects.get(username=friend_username)
             context['friend']=friend
+            is_following=self.request.user.is_following(friend)
+            context['is_following']= is_following
             return context
      
      def get_queryset(self):
@@ -122,3 +125,21 @@ class SearchResults(ListView):
           search_term=self.request.GET['search-term']
           qs=User.objects.filter(username__contains=search_term)
           return qs
+     
+
+@login_required(login_url='login')           
+def follow_user(request,id):
+     user_A=request.user  
+     user_B=User.objects.get(id=id)
+     new_friend=Friends(user_A=user_A,user_B=user_B)
+     new_friend.save()
+     return redirect('/user/'+user_B.username)        
+
+@login_required(login_url='login')           
+def unfollow_user(request,id):
+     user_A=request.user  
+     user_B=User.objects.get(id=id)     
+     new_friend=Friends.objects.filter(user_A=user_A,user_B=user_B).delete()
+      
+     return redirect('/user/'+user_B.username)        
+
