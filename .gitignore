@@ -11,7 +11,8 @@ db.sqlite3
 
 # Static files (collected)
 /socialNetworkApp/staticfiles/
-
+/socialNetworkApp/Static/media/*
+!socialNetworkApp/Static/media/.gitkeep
 # Environment variables
 .env
 
