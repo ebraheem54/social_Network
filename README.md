@@ -1,16 +1,17 @@
-# Django Social Network Application
+# Django SocialHub
+A Django-based social network where users can register, create posts with images, follow others, react to posts, and leave nested comments.
 
 ## Overview
 A full-stack social networking platform built with Django, featuring modern UI/UX, user authentication, and comprehensive profile management capabilities.
 
 ## Features
-- 👤 User registration and authentication system
-- 📝 User profiles with bio and profile pictures
-- 📱 Post creation with captions and media upload
-- ⚙️ Account settings to update profile information
-- 📄 Pagination on profile pages (2 posts per page)
-- 🔍 Search functionality to find and discover friends
-- 👥 Follow/unfollow system for user connections
+- User registration and login
+- Profile pages with bio and profile picture
+- Create posts with text and/or images
+- React to posts (Like, Love, Haha, Wow, Sad)
+- Nested comment threads (reply to any comment)
+- Follow / Unfollow users
+- Homepage feed showing all posts
 
 ## Project Structure
 ```
@@ -81,10 +82,14 @@ SECRET_KEY=your-secret-key-here
 DEBUG=True
 ```
 
-5. **Run migrations**
+
+**5. Run database migrations**
+
 ```bash
+cd socialNetwork/socialNetworkApp
 python manage.py migrate
 ```
+
 
 6. **Create a superuser (optional)**
 ```bash
@@ -100,8 +105,8 @@ Visit `http://127.0.0.1:8000` in your browser.
 
 ## Project Architecture
 This is a standard Django application following the **MVT (Model-View-Template)** pattern:
-- **Models**: Define User and Post data structures
-- **Views**: Handle request/response logic for authentication and CRUD operations
+- **Models**: Define User and Post data structures.
+- **Views**: Handle request/response logic for authentication and CRUD operations.
 - **Templates**: Render dynamic HTML pages with professional UI
 - **Static Files**: Custom CSS framework, JavaScript, and user-uploaded media
 
@@ -116,8 +121,12 @@ This is a standard Django application following the **MVT (Model-View-Template)*
 ## Database Schema
 - **User Model**: Extended Django user with profile picture and bio
 - **Post Model**: User posts with captions, images, and timestamps
+-**Friends Models**: relation between user ,user a can follow user b and user b can follow user b
+-**Comment**: user can comment on the post and reply to any comment
+-**Reaction**: user can reaction on any post
 
- 
+
+
 ### Recent Updates
 - **Friend Search & Social Features**
   - Added search functionality to find and discover friends
@@ -129,7 +138,7 @@ This is a standard Django application following the **MVT (Model-View-Template)*
 - Enhanced pagination with better UI and accessibility
 - Added accessibility attributes (aria-label, aria-hidden)
 - Consistent responsive design across all pages
- 
+
 
 ### Best Practices Implemented
 - Clean separation of concerns (MVT pattern)

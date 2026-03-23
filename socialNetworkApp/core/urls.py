@@ -1,18 +1,19 @@
-from django.contrib import admin
-from django.urls import path,include
+from django.urls import path
 from .views import *
-urlpatterns=[
-    # path('',index,name='index'),
-    path('signup/',SignupView.as_view(),name='signup'),
-    path('',login_page ,name='login'),
-    path('logout',logut_user ,name='logout'),
-    path('profile/',Profile.as_view(),name='profile'),
-    path('account-settings/',AccountSettingsView.as_view(),name='account_settings'),
-    path('new-post/',CreatePost.as_view(),name='new_post'),
-    path('user/<str:username>/',FriendProfile.as_view(),name='friend-profile'),
-    path('search/',SearchResults.as_view(),name='search'),
-    path('follow/<int:id>',follow_user,name='follow_user'),
-    path('unfollow/<int:id>',unfollow_user,name='follow_user'),
-    path('home/',HomePage.as_view(),name='home-page'),
 
+urlpatterns = [
+    path('signup/', SignupView.as_view(), name='signup'),
+    path('', login_page, name='login'),
+    path('logout', logut_user, name='logout'),
+    path('profile/', Profile.as_view(), name='profile'),
+    path('account-settings/', AccountSettingsView.as_view(), name='account_settings'),
+    path('new-post/', CreatePost.as_view(), name='new_post'),
+    path('user/<str:username>/', FriendProfile.as_view(), name='friend-profile'),
+    path('search/', SearchResults.as_view(), name='search'),
+    path('follow/<int:id>', follow_user, name='follow_user'),
+    path('unfollow/<int:id>', unfollow_user, name='unfollow_user'),
+    path('home/', HomePage.as_view(), name='home-page'),
+    path('react/<int:post_id>/', react_to_post, name='react_to_post'),
+    path('comment/<int:post_id>/', add_comment, name='add_comment'),
+    path('comment/delete/<int:comment_id>/', delete_comment, name='delete_comment'),
 ]

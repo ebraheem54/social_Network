@@ -9,7 +9,7 @@
 
 {% block content %}
 <div class="row mt-4">
-    <div class="col-lg-8 offset-lg-2">
+    <div class="col-md-8 offset-md-2">
         <div class="card">
             <div class="card-body">
                 <h2 class="mb-4">
@@ -18,6 +18,9 @@
                 {% if form.errors %}
                     <div class="alert alert-danger" role="alert">
                         <strong>Error!</strong> Please fix the errors below.
+                        {% for error in form.non_field_errors %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
                     </div>
                 {% endif %}
                 <form method="POST" enctype="multipart/form-data">
@@ -25,7 +28,27 @@
                     <div class="form-group">
                         <label for="{{ form.caption.id_for_label }}">What's on your mind?</label>
                         {{ form.caption }}
-                        <small class="form-text text-muted">Share your thoughts with the community</small>
+                        <small class="form-text text-muted">Share your thoughts (optional if adding an image)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.image.id_for_label }}">
+                            <i class="fas fa-image" style="color: #2563eb;"></i> Add an Image <span class="text-muted">(optional)</span>
+                        </label>
+                        <div class="post-image-upload-area" id="image-upload-area">
+                            <input type="file" name="image" id="{{ form.image.id_for_label }}"
+                                   accept="image/*" class="post-image-file-input" id="image-file-input">
+                            <label for="image-file-input" class="post-image-upload-label" id="upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Click to upload an image</span>
+                                <small>PNG, JPG, GIF supported</small>
+                            </label>
+                            <div class="post-image-preview-wrap" id="image-preview-wrap" style="display:none;">
+                                <img id="image-preview" src="" alt="Preview" class="post-image-preview">
+                                <button type="button" class="post-image-remove-btn" id="remove-image-btn">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-primary">
@@ -40,4 +63,40 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const fileInput = document.getElementById('image-file-input');
+    const previewWrap = document.getElementById('image-preview-wrap');
+    const previewImg = document.getElementById('image-preview');
+    const uploadLabel = document.getElementById('upload-label');
+    const removeBtn = document.getElementById('remove-image-btn');
+
+    if (fileInput) {
+        fileInput.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    previewImg.src = e.target.result;
+                    previewWrap.style.display = 'block';
+                    uploadLabel.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    if (removeBtn) {
+        removeBtn.addEventListener('click', function () {
+            fileInput.value = '';
+            previewImg.src = '';
+            previewWrap.style.display = 'none';
+            uploadLabel.style.display = 'flex';
+        });
+    }
+});
+</script>
 {% endblock %}

@@ -1,56 +1,50 @@
-{%  extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% extends 'base.html' %}
+{% load dict_filters %}
 
-{% block title %}
-{{friend.username}}
-{% endblock title %}
+{% block title %}{{ friend.username }} - SocialHub{% endblock %}
 
-
-{% block navbar %}
-
-
-{%  include 'navbar.html' %}
-
-{% endblock navbar %}
+{% block navbar %}{% include 'navbar.html' %}{% endblock %}
 
 {% block content %}
-
-<div class="row" style="margin-top:2%;">
-
-    <div class="col-md-3" style="margin-left:4%; text-align: center;">
-        <div class="card card-body" style="border-radius:25px;">
-            <img class="img-fluid img-thumbnail"  src="{{friend.profile_pic.url}}" >
-
-            <h3 >{{friend.first_name}} {{friend.last_name}}</h3>
-            <a href="#"><h4 >@{{friend.username}}</h4></a>
-            <h6>{{friend.get_num_posts}} Posts</h6>
-            <p>{{friend.bio}}</p>
-            {% if is_following %}
-            <a href="/unfollow/{{friend.id}}"><button class="btn btn-danger">Unfollow</button></a>
-            {%else %}
-            <a href="/follow/{{friend.id}}"><button class="btn btn-success">Follow</button></a>
-            {%endif%}
-        </div>
-    </div>
-
-
-
-    <div class="col-md-8" >
-        <div class="card card-body"style="border-radius:25px; min-height:100%;">
-
-            {% for post in object_list %}
-            <div class="card" style="margin: 2%;">
-                <div class="card-body">
-                    <p class="card-text">{{post.caption}}</p>
-                    <a href="#" class="card-link">{{post.date_created}}</a>
+<div class="row mt-4">
+    <div class="col-md-4 mb-4">
+        <div class="profile-card">
+            <img src="{{ friend.profile_pic.url }}" alt="{{ friend.username }}" class="profile-pic">
+            <div class="profile-info">
+                <h2 class="profile-name">{{ friend.first_name }} {{ friend.last_name }}</h2>
+                <p class="profile-username">@{{ friend.username }}</p>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <div class="stat-number">{{ friend.get_num_posts }}</div>
+                        <div class="stat-label">Posts</div>
+                    </div>
                 </div>
+                <p class="profile-bio">{{ friend.bio }}</p>
+                {% if is_following %}
+                    <a href="/unfollow/{{ friend.id }}" class="btn btn-danger w-100 mb-2">
+                        <i class="fas fa-user-minus"></i> Unfollow
+                    </a>
+                {% else %}
+                    <a href="/follow/{{ friend.id }}" class="btn btn-primary w-100 mb-2">
+                        <i class="fas fa-user-plus"></i> Follow
+                    </a>
+                {% endif %}
             </div>
-            {% endfor %}
-            {% include 'pagination.html' %}
         </div>
-        <br>
     </div>
-
+    <div class="col-md-8">
+        <div class="posts-container">
+            {% if object_list %}
+                {% for post in object_list %}
+                    {% include 'post_partial.html' with post=post show_user=False user_reactions=user_reactions reaction_choices=reaction_choices %}
+                {% endfor %}
+                {% include 'pagination.html' %}
+            {% else %}
+                <div class="alert alert-info text-center">
+                    <i class="fas fa-inbox"></i> No posts yet.
+                </div>
+            {% endif %}
+        </div>
+    </div>
 </div>
-
-{% endblock content %}
+{% endblock %}

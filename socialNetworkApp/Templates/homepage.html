@@ -1,51 +1,23 @@
-{%  extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% extends 'base.html' %}
+{% load dict_filters %}
 
-{% block title %}
-Home
-{% endblock title %}
+{% block title %}Home - SocialHub{% endblock %}
 
-
-{% block navbar %}
-
-
-{%  include 'navbar.html' %}
-
-{% endblock navbar %}
+{% block navbar %}{% include 'navbar.html' %}{% endblock %}
 
 {% block content %}
-
-<div class="row" style="margin-top:2%;">
-
-    <div class="col" >
-
-        <div class="card card-body"style="border-radius:25px;">
-            
+<div class="row mt-4">
+    <div class="col-md-10 col-lg-8 mx-auto">
+        {% if object_list %}
             {% for post in object_list %}
-
-            <div class="card" style="margin: 2%;">
-
-                <div class="card-body row">
-                    <div class="col-md-2">
-                        <img src="{{post.user.profile_pic.url}}" style="max-width:100px; max-height:100px;">
-                    </div>
-                    <div class="col-md-10">
-                        <a href="/user/{{post.user.username}}" class="card-link"><h4>@{{post.user.username}}</h4></a>
-                        <p class="card-text">{{post.caption}}</p>
-                        <a href="#" class="card-link">{{post.date_created}}</a>
-                    </div>
-                </div>
-            </div>
-
+                {% include 'post_partial.html' with post=post show_user=show_user user_reactions=user_reactions reaction_choices=reaction_choices %}
             {% endfor %}
-            {%  include 'pagination.html' %}
-        </div>
-
-        <br>
+            {% include 'pagination.html' %}
+        {% else %}
+            <div class="alert alert-info text-center">
+                <i class="fas fa-pen"></i> No posts yet. Be the first to <a href="{% url 'new_post' %}">create one</a>!
+            </div>
+        {% endif %}
     </div>
-
-
-
 </div>
-
-{% endblock content %}
+{% endblock %}

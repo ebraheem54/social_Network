@@ -1,0 +1,44 @@
+{% load dict_filters %}
+{% with next_depth=depth|add:1 %}
+<div class="fb-comment fb-comment-depth-{{ depth }}" id="comment-{{ comment.id }}">
+    <a href="/user/{{ comment.user.username }}">
+        <img src="{{ comment.user.profile_pic.url }}" alt="{{ comment.user.username }}"
+             class="{% if depth == 0 %}fb-comment-avatar{% else %}fb-reply-avatar{% endif %}">
+    </a>
+    <div class="fb-comment-main">
+        <div class="fb-comment-bubble">
+            <a href="/user/{{ comment.user.username }}" class="fb-comment-name">{{ comment.user.username }}</a>
+            <p class="fb-comment-text">{{ comment.text }}</p>
+        </div>
+        <div class="fb-comment-actions">
+            <span class="fb-comment-time">{{ comment.created_at|timesince }} ago</span>
+            <button class="fb-reply-btn"
+                    data-comment="{{ comment.id }}"
+                    data-post="{{ post.id }}"
+                    data-username="{{ comment.user.username }}">Reply</button>
+            {% if comment.user == request.user or post.user == request.user %}
+            <form method="POST" action="{% url 'delete_comment' comment.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="fb-delete-btn">Delete</button>
+            </form>
+            {% endif %}
+        </div>
+
+        <div class="reply-input-area" id="reply-area-{{ comment.id }}" style="display:none;">
+            <img src="{{ request.user.profile_pic.url }}" alt="You" class="fb-reply-avatar">
+            <form method="POST" action="{% url 'add_comment' post.id %}" class="reply-form">
+                {% csrf_token %}
+                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                <div class="fb-input-wrap">
+                    <input type="text" name="text" class="fb-input" placeholder="Write a reply..." maxlength="500" autocomplete="off">
+                    <button type="submit" class="fb-send-btn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </form>
+        </div>
+
+        {% for reply in comment.get_replies %}
+            {% render_comment_node reply post next_depth %}
+        {% endfor %}
+    </div>
+</div>
+{% endwith %}

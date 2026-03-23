@@ -306,6 +306,803 @@ body {
     border-color: var(--primary-color);
 }
 
+/* Navbar enhancements */
+.navbar {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important;
+}
+
+.nav-search-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.nav-search-icon {
+    position: absolute;
+    left: 12px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.nav-search-input {
+    padding-left: 2rem !important;
+    border-radius: 20px !important;
+    min-width: 220px;
+}
+
+.nav-messages-link {
+    position: relative;
+}
+
+.nav-badge {
+    position: absolute;
+    top: -4px;
+    right: -8px;
+    background: #ef4444;
+    color: white;
+    border-radius: 10px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 1px 5px;
+    min-width: 18px;
+    text-align: center;
+}
+
+/* Post User Header (for homepage feed) */
+.post-user-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.post-user-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.post-user-link:hover {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.post-user-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+}
+
+.post-user-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: block;
+}
+
+.post-time-small {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    display: block;
+}
+
+.message-quick-btn {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 0.4rem 0.6rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.message-quick-btn:hover {
+    color: var(--primary-color);
+    background: rgba(37, 99, 235, 0.08);
+    text-decoration: none;
+}
+
+/* ==================== REACTION STATS BAR ==================== */
+.post-stats-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+}
+
+.reaction-stats-display {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    cursor: default;
+}
+
+.stat-emoji {
+    font-size: 1rem;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    background: white;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-color);
+    margin-right: -4px;
+}
+
+.stat-count {
+    margin-left: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.comment-stat-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.comment-stat-btn:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* ==================== POST ACTION BAR ==================== */
+.post-action-bar {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    gap: 0.25rem;
+}
+
+.action-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 0.55rem 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.action-btn:hover {
+    background: var(--light-bg);
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.like-action-btn.reacted {
+    color: var(--primary-color);
+}
+
+.message-action-btn {
+    color: var(--text-secondary);
+}
+
+/* ==================== REACTION HOVER POPUP ==================== */
+.reaction-action-wrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+}
+
+.reaction-popup {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    background: white;
+    border-radius: 30px;
+    padding: 6px 10px;
+    display: flex;
+    gap: 6px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.18), 0 1px 4px rgba(0,0,0,0.08);
+    border: 1px solid var(--border-color);
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8) translateY(10px);
+    transform-origin: bottom left;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 100;
+    white-space: nowrap;
+}
+
+.reaction-popup.popup-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1) translateY(0);
+}
+
+.popup-reaction-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.6rem;
+    padding: 2px;
+    border-radius: 50%;
+    transition: transform 0.15s ease;
+    line-height: 1;
+}
+
+.popup-reaction-btn:hover {
+    transform: scale(1.35) translateY(-4px);
+}
+
+.popup-reaction-btn.popup-active {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 4px rgba(37,99,235,0.5));
+}
+
+/* ==================== FACEBOOK-LIKE COMMENTS ==================== */
+.comments-section {
+    background: #f8fafc;
+    border-top: 1px solid var(--border-color);
+    padding: 1rem 1rem 0.75rem;
+}
+
+.comments-list {
+    margin-bottom: 0.75rem;
+}
+
+.no-comments-msg {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    padding: 0.5rem 0 0.75rem;
+    margin: 0;
+}
+
+/* Top-level comment row */
+.fb-comment {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-bottom: 0.7rem;
+}
+
+.fb-comment-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1.5px solid var(--border-color);
+}
+
+.fb-comment-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.fb-comment-bubble {
+    background: white;
+    border-radius: 18px;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid var(--border-color);
+    display: inline-block;
+    max-width: 100%;
+    word-break: break-word;
+}
+
+.fb-comment-name {
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    display: block;
+}
+
+.fb-comment-name:hover {
+    text-decoration: underline;
+    color: var(--primary-color);
+}
+
+.fb-comment-text {
+    margin: 0.15rem 0 0;
+    font-size: 0.92rem;
+    color: var(--text-primary);
+    line-height: 1.45;
+}
+
+/* Comment action links */
+.fb-comment-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+    padding-left: 0.5rem;
+}
+
+.fb-comment-time {
+    font-size: 0.73rem;
+    color: var(--text-secondary);
+}
+
+.fb-reply-btn,
+.fb-delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.73rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    padding: 0;
+    transition: color 0.15s;
+}
+
+.fb-reply-btn:hover {
+    color: var(--primary-color);
+}
+
+.fb-delete-btn:hover {
+    color: var(--danger-color);
+}
+
+/* Reply rows (indented) */
+.fb-reply {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-top: 0.55rem;
+    margin-left: 1rem;
+}
+
+.fb-reply-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1.5px solid var(--border-color);
+}
+
+/* Reply input row */
+.reply-input-area {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+/* Main comment input row */
+.fb-comment-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.fb-comment-form,
+.reply-form {
+    flex: 1;
+    display: flex;
+}
+
+.fb-input-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1.5px solid var(--border-color);
+    border-radius: 22px;
+    padding: 0.3rem 0.5rem 0.3rem 0.9rem;
+    transition: border-color 0.2s;
+}
+
+.fb-input-wrap:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.fb-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    min-width: 0;
+}
+
+.fb-send-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 0.2rem 0.4rem;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    transition: all 0.15s;
+    flex-shrink: 0;
+}
+
+.fb-send-btn:hover {
+    color: var(--primary-dark);
+    transform: scale(1.1);
+}
+
+/* ==================== MESSAGING / INBOX ==================== */
+.inbox-container {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.inbox-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.inbox-header h4 {
+    margin: 0;
+}
+
+.conversation-list {
+    /* List of convos */
+}
+
+.convo-item {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.15s;
+    position: relative;
+}
+
+.convo-item:hover {
+    background: var(--light-bg);
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.convo-item:last-child {
+    border-bottom: none;
+}
+
+.convo-unread {
+    background: #eff6ff;
+}
+
+.convo-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--border-color);
+}
+
+.convo-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.convo-name-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.2rem;
+}
+
+.convo-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.convo-time {
+    font-size: 0.73rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    margin-left: 0.5rem;
+}
+
+.convo-preview {
+    margin: 0;
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.convo-unread .convo-preview {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.convo-unread .convo-name {
+    color: var(--primary-color);
+}
+
+.you-label {
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.convo-unread-badge {
+    background: var(--primary-color);
+    color: white;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    min-width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.inbox-empty {
+    padding: 3rem 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.inbox-empty i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--border-color);
+}
+
+/* ==================== CONVERSATION / CHAT ==================== */
+.chat-container {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    background: white;
+    position: sticky;
+    top: 0;
+}
+
+.chat-back-btn {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.chat-back-btn:hover {
+    background: var(--light-bg);
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.chat-header-user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.chat-header-user:hover {
+    text-decoration: none;
+}
+
+.chat-header-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+}
+
+.chat-header-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: block;
+}
+
+.chat-header-fullname {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    display: block;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 1.25rem;
+    overflow-y: auto;
+    min-height: 350px;
+    max-height: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: #f8fafc;
+}
+
+.chat-msg {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    max-width: 75%;
+}
+
+.chat-msg-received {
+    align-self: flex-start;
+}
+
+.chat-msg-sent {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.chat-msg-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1.5px solid var(--border-color);
+}
+
+.chat-bubble {
+    padding: 0.6rem 1rem;
+    border-radius: 18px;
+    max-width: 100%;
+    word-break: break-word;
+}
+
+.chat-msg-received .chat-bubble {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-bottom-left-radius: 4px;
+}
+
+.chat-msg-sent .chat-bubble {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.chat-bubble p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.45;
+}
+
+.chat-msg-time {
+    display: block;
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.7);
+    margin-top: 0.2rem;
+    text-align: right;
+}
+
+.chat-msg-received .chat-msg-time {
+    color: var(--text-secondary);
+    text-align: left;
+}
+
+.chat-empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 2rem;
+}
+
+.chat-empty i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--border-color);
+}
+
+.chat-input-form {
+    border-top: 1px solid var(--border-color);
+    padding: 0.85rem 1.25rem;
+    background: white;
+}
+
+.chat-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.chat-input-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1.5px solid var(--border-color);
+}
+
+.chat-input-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: var(--light-bg);
+    border: 1.5px solid var(--border-color);
+    border-radius: 24px;
+    padding: 0.45rem 0.6rem 0.45rem 1rem;
+    transition: border-color 0.2s;
+}
+
+.chat-input-wrap:focus-within {
+    border-color: var(--primary-color);
+    background: white;
+    box-shadow: 0 0 0 2px rgba(37,99,235,0.1);
+}
+
+.chat-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 0.92rem;
+    color: var(--text-primary);
+    min-width: 0;
+}
+
+.chat-send-btn {
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.chat-send-btn:hover {
+    background: var(--primary-dark);
+    transform: scale(1.05);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .auth-container {
@@ -353,3 +1150,111 @@ body {
 .gap-2 {
     gap: 0.5rem;
 }
+
+/* ===== Post Images ===== */
+.post-image-wrap {
+    margin: 0.75rem 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f1f5f9;
+}
+
+.post-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.post-image:hover {
+    opacity: 0.95;
+}
+
+/* ===== Image Upload Widget ===== */
+.post-image-upload-area {
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+.post-image-upload-area:hover {
+    border-color: var(--primary);
+}
+
+.post-image-file-input {
+    display: none;
+}
+
+.post-image-upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    cursor: pointer;
+    color: #64748b;
+    gap: 0.5rem;
+}
+
+.post-image-upload-label i {
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+.post-image-upload-label span {
+    font-weight: 500;
+    color: #475569;
+}
+
+.post-image-upload-label small {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+.post-image-preview-wrap {
+    position: relative;
+}
+
+.post-image-preview {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    display: block;
+}
+
+.post-image-remove-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    transition: background 0.2s;
+}
+
+.post-image-remove-btn:hover {
+    background: rgba(220,38,38,0.85);
+}
+
+/* ===== Nested Comment Tree ===== */
+.fb-comment-depth-0 { margin-left: 0; }
+.fb-comment-depth-1 { margin-left: 2.5rem; }
+.fb-comment-depth-2 { margin-left: 2.5rem; }
+.fb-comment-depth-3 { margin-left: 2.5rem; }
+.fb-comment-depth-4 { margin-left: 2rem; }
+.fb-comment-depth-5,
+.fb-comment-depth-6,
+.fb-comment-depth-7,
+.fb-comment-depth-8 { margin-left: 1.5rem; }

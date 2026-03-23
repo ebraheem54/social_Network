@@ -1,0 +1,100 @@
+{% load static %}
+{% load dict_filters %}
+<div class="post-card" id="post-{{ post.id }}">
+
+    {% if show_user %}
+    <div class="post-user-header">
+        <a href="/user/{{ post.user.username }}" class="post-user-link">
+            <img src="{{ post.user.profile_pic.url }}" alt="{{ post.user.username }}" class="post-user-avatar">
+            <div>
+                <span class="post-user-name">@{{ post.user.username }}</span>
+                <span class="post-time-small"><i class="fas fa-clock"></i> {{ post.date_created|date:"M d, Y · g:i A" }}</span>
+            </div>
+        </a>
+    </div>
+    {% else %}
+    <div class="post-header">
+        <div><i class="fas fa-quote-left" style="color: #2563eb; font-size: 1.1rem;"></i></div>
+        <span class="post-time"><i class="fas fa-clock"></i> {{ post.date_created|date:"M d, Y · g:i A" }}</span>
+    </div>
+    {% endif %}
+
+    {% if post.caption %}
+    <div class="post-content">{{ post.caption }}</div>
+    {% endif %}
+
+    {% if post.image %}
+    <div class="post-image-wrap">
+        <img src="{{ post.image.url }}" alt="Post image" class="post-image">
+    </div>
+    {% endif %}
+
+    {% with counts=post.get_reaction_counts total=post.get_total_reactions comment_count=post.get_comment_count %}
+    {% if total or comment_count %}
+    <div class="post-stats-bar">
+        {% if total %}
+        <span class="reaction-stats-display" id="reaction-stats-{{ post.id }}">
+            {% for emoji in post.get_top_reactions %}<span class="stat-emoji">{{ emoji }}</span>{% endfor %}
+            <span class="stat-count">{{ total }}</span>
+        </span>
+        {% else %}
+        <span id="reaction-stats-{{ post.id }}"></span>
+        {% endif %}
+        {% if comment_count %}
+        <button class="comment-stat-btn" data-post="{{ post.id }}">
+            {{ comment_count }} comment{{ comment_count|pluralize }}
+        </button>
+        {% endif %}
+    </div>
+    {% else %}
+    <div id="reaction-stats-{{ post.id }}" style="display:none;"></div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="post-action-bar">
+        <div class="reaction-action-wrapper" data-post="{{ post.id }}">
+            <button class="action-btn like-action-btn {% if user_reactions|get_item:post.id %}reacted{% endif %}"
+                    id="like-btn-{{ post.id }}"
+                    data-post="{{ post.id }}"
+                    data-current="{{ user_reactions|get_item:post.id|default:'' }}">
+                <span class="like-btn-emoji">{% if user_reactions|get_item:post.id %}{{ user_reactions|get_item:post.id|get_reaction_emoji }}{% else %}👍{% endif %}</span>
+                <span class="like-btn-label">{% if user_reactions|get_item:post.id %}{{ user_reactions|get_item:post.id|capfirst }}{% else %}Like{% endif %}</span>
+            </button>
+            <div class="reaction-popup" id="reaction-popup-{{ post.id }}">
+                {% for rtype, emoji in reaction_choices %}
+                <button class="popup-reaction-btn {% if user_reactions|get_item:post.id == rtype %}popup-active{% endif %}"
+                        data-reaction="{{ rtype }}"
+                        data-post="{{ post.id }}"
+                        title="{{ rtype|capfirst }}">
+                    <span>{{ emoji }}</span>
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button class="action-btn comment-action-btn" data-post="{{ post.id }}">
+            <span>💬</span> Comment
+        </button>
+    </div>
+
+    <div class="comments-section" id="comments-{{ post.id }}" style="display:none;">
+        <div class="comments-list" id="comments-list-{{ post.id }}">
+            {% for comment in post.get_comments %}
+                {% render_comment_node comment post 0 %}
+            {% empty %}
+            <p class="no-comments-msg">No comments yet. Be the first to comment!</p>
+            {% endfor %}
+        </div>
+
+        <div class="fb-comment-input-row">
+            <img src="{{ request.user.profile_pic.url }}" alt="You" class="fb-comment-avatar">
+            <form method="POST" action="{% url 'add_comment' post.id %}" class="fb-comment-form" id="comment-form-{{ post.id }}">
+                {% csrf_token %}
+                <div class="fb-input-wrap">
+                    <input type="text" name="text" class="fb-input" placeholder="Write a comment..." maxlength="500" autocomplete="off" id="comment-input-{{ post.id }}">
+                    <button type="submit" class="fb-send-btn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

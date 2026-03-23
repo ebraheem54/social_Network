@@ -1,15 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load dict_filters %}
 
 {% block title %}Profile - SocialHub{% endblock %}
 
-{% block navbar %}
-{% include 'navbar.html' %}
-{% endblock %}
+{% block navbar %}{% include 'navbar.html' %}{% endblock %}
 
 {% block content %}
 <div class="row mt-4">
-    <div class="col-lg-4 mb-4">
+    <div class="col-md-4 mb-4">
         <div class="profile-card">
             <img src="{{ request.user.profile_pic.url }}" alt="Profile" class="profile-pic">
             <div class="profile-info">
@@ -20,10 +19,6 @@
                         <div class="stat-number">{{ request.user.get_num_posts }}</div>
                         <div class="stat-label">Posts</div>
                     </div>
-                    <div class="stat">
-                        <div class="stat-number">{{ request.user.post_set.count }}</div>
-                        <div class="stat-label">Updates</div>
-                    </div>
                 </div>
                 <p class="profile-bio">{{ request.user.bio }}</p>
                 <a href="{% url 'account_settings' %}" class="btn btn-primary w-100">
@@ -32,30 +27,18 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-8">
+    <div class="col-md-8">
         <a href="{% url 'new_post' %}" class="new-post-button">
             <i class="fas fa-pen-fancy"></i> Write a New Post
         </a>
         <div class="posts-container">
             {% if object_list %}
                 {% for post in object_list %}
-                    <div class="post-card">
-                        <div class="post-header">
-                            <div>
-                                <i class="fas fa-quote-left" style="color: #2563eb; font-size: 1.25rem;"></i>
-                            </div>
-                            <span class="post-time">
-                                <i class="fas fa-clock"></i> {{ post.date_created|date:"M d, Y - g:i A" }}
-                            </span>
-                        </div>
-                        <div class="post-content">
-                            {{ post.caption }}
-                        </div>
-                    </div>
+                    {% include 'post_partial.html' with post=post show_user=False user_reactions=user_reactions reaction_choices=reaction_choices %}
                 {% endfor %}
                 {% include 'pagination.html' %}
             {% else %}
-                <div class="alert alert-info text-center" role="alert">
+                <div class="alert alert-info text-center">
                     <i class="fas fa-inbox"></i> No posts yet. <a href="{% url 'new_post' %}">Create your first post!</a>
                 </div>
             {% endif %}
